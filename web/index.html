@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Monitor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+<div class="flex flex-col h-screen justify-center items-center border border-neutral-900">
+    <div class="border shadow-sm p-4 rounded-lg">
+
+        <div class="text-center underline underline-offset-4 mb-2" id="time"></div>
+
+        <div>
+            <span>Total Memory</span>
+            <span class="font-semibold" id="totalMemory"></span>
+        </div>
+
+        <div>
+            <span>Used Memory</span>
+            <span class="font-semibold" id="usedMemory"></span>
+        </div>
+
+        <div>
+            <span>Free Memory</span>
+            <span class="font-semibold" id="freeMemory"></span>
+        </div>
+
+        <div>
+            <span>Percentage Used Memory</span>
+            <span class="font-semibold" id="usedPercent"></span>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const ws = new WebSocket("ws://localhost:3000/wsUrl");
+        ws.onmessage = function (event) {
+            let memoryStats = JSON.parse(event.data);
+            document.getElementById("totalMemory").textContent = memoryStats.TotalMemory + " MB";
+            document.getElementById("usedMemory").textContent = memoryStats.UsedMemory + " MB";
+            document.getElementById("freeMemory").textContent = memoryStats.FreeMemory + " MB";
+            document.getElementById("usedPercent").textContent = memoryStats.PercentageUsedMemory + " %";
+            document.getElementById("time").textContent = memoryStats.Time;
+        };
+    });
+</script>
+</body>
+</html>
