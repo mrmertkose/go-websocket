@@ -1,1 +1,1 @@
-Medium Link: 
+Medium Link: https://medium.com/@mertkose/go-ile-websocket-uygulaması-b21b5e6d8ff3
